@@ -62,5 +62,18 @@ foreach (var q in query2)
     Console.WriteLine("{0}\t{1}\t{2}", q.m.Id, q.m.Nome, q.g.Nome);
 }
 
+Console.WriteLine();
+Console.WriteLine("Listar músicas cujo gênero tenha o nome Reggae");
+
+var query3 = from m in musicas
+            join g in generos on m.GeneroId equals g.Id
+	    where g.Nome == "Reggae"
+	    select m.Nome;
+
+foreach (var q in query3)
+{
+    Console.WriteLine("{0}", q);
+}
+
 Console.ReadKey();
 
