@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AluraTunes", "AluraTunes\AluraTunes.csproj", "{BDAAB3EB-08C5-420E-9158-EA7E28049C91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AluraTunes", "AluraTunes\AluraTunes.csproj", "{BDAAB3EB-08C5-420E-9158-EA7E28049C91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqToXML", "LinqToXML\LinqToXML.csproj", "{0D5DF337-F85A-4CC4-9FD7-3A25ECD6BCFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqToXml2", "LinqToXml2\LinqToXml2.csproj", "{BA3617F6-0C86-49C9-9603-D8C54EA0350F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{BDAAB3EB-08C5-420E-9158-EA7E28049C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDAAB3EB-08C5-420E-9158-EA7E28049C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDAAB3EB-08C5-420E-9158-EA7E28049C91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D5DF337-F85A-4CC4-9FD7-3A25ECD6BCFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D5DF337-F85A-4CC4-9FD7-3A25ECD6BCFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D5DF337-F85A-4CC4-9FD7-3A25ECD6BCFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D5DF337-F85A-4CC4-9FD7-3A25ECD6BCFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA3617F6-0C86-49C9-9603-D8C54EA0350F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA3617F6-0C86-49C9-9603-D8C54EA0350F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA3617F6-0C86-49C9-9603-D8C54EA0350F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA3617F6-0C86-49C9-9603-D8C54EA0350F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
