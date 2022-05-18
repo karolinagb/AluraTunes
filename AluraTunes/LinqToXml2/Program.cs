@@ -6,11 +6,28 @@ XElement root = XElement.Load(@"C:\projetos\AluraTunes\AluraTunes\LinqToXml2\Dat
 
 //Definir consulta linq que acesse o arquivo
 
-var queryXML = 
+var queryXML =
     from g in root.Element("Generos").Elements("Genero")
     select g;
 
-foreach(var genero in queryXML)
+foreach (var genero in queryXML)
 {
     Console.WriteLine("{0}\t{1}", genero.Element("GeneroId").Value, genero.Element("Nome").Value);
 }
+
+var query = from g in root.Element("Generos").Elements("Genero")
+            join m in root.Element("Musicas").Elements("Musica")
+                on g.Element("GeneroId").Value equals m.Element("GeneroId").Value
+            select new
+            {
+                Musica = m.Element("Nome").Value,
+                Genero = g.Element("Nome").Value
+            };
+Console.WriteLine();
+
+foreach (var musicaEGenero in query)
+{
+    Console.WriteLine("{0}\t{1}", musicaEGenero.Musica, musicaEGenero.Genero);
+}
+
+Console.ReadKey();
