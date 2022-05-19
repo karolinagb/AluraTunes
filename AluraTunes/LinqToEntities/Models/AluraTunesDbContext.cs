@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace LinqToEntities.Models
 {
-    public partial class CPROJETOSALURATUNESALURATUNESLINQTOENTITIESDATAALURATUNESMDFContext : DbContext
+    public partial class AluraTunesDbContext : DbContext
     {
-        public CPROJETOSALURATUNESALURATUNESLINQTOENTITIESDATAALURATUNESMDFContext()
+        public AluraTunesDbContext()
         {
         }
 
-        public CPROJETOSALURATUNESALURATUNESLINQTOENTITIESDATAALURATUNESMDFContext(DbContextOptions<CPROJETOSALURATUNESALURATUNESLINQTOENTITIESDATAALURATUNESMDFContext> options)
+        public AluraTunesDbContext(DbContextOptions<AluraTunesDbContext> options)
             : base(options)
         {
         }

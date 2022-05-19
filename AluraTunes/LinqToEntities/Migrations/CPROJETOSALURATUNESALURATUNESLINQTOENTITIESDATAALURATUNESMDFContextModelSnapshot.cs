@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LinqToEntities.Migrations
 {
-    [DbContext(typeof(CPROJETOSALURATUNESALURATUNESLINQTOENTITIESDATAALURATUNESMDFContext))]
+    [DbContext(typeof(AluraTunesDbContext))]
     partial class CPROJETOSALURATUNESALURATUNESLINQTOENTITIESDATAALURATUNESMDFContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

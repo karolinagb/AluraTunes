@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LinqToEntities.Migrations
 {
-    [DbContext(typeof(CPROJETOSALURATUNESALURATUNESLINQTOENTITIESDATAALURATUNESMDFContext))]
+    [DbContext(typeof(AluraTunesDbContext))]
     [Migration("20220519185822_Initial")]
     partial class Initial
     {
