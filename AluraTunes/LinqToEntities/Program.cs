@@ -32,5 +32,18 @@ using (var contexto = new AluraTunesDbContext())
         Console.WriteLine("{0}\t{1}", item.f.Nome, item.g.Nome);
     }
 
+    Console.WriteLine();
+
+    //filtrar por nome de banda
+    var textoBusca = "Led";
+
+    var filtroNomeBanda = from a in contexto.Artista
+                          where a.Nome.Contains(textoBusca)
+                          select a;
+    foreach (var nomeBanda in filtroNomeBanda)
+    {
+        Console.WriteLine("{0}\t{1}", nomeBanda.ArtistaId, nomeBanda.Nome);
+    }
+
     Console.ReadKey();
 }
