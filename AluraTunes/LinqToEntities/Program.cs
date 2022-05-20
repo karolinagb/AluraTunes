@@ -45,5 +45,15 @@ using (var contexto = new AluraTunesDbContext())
         Console.WriteLine("{0}\t{1}", nomeBanda.ArtistaId, nomeBanda.Nome);
     }
 
+    Console.WriteLine();
+
+    var filtroNomeBanda2 = contexto.Artista.Where(a => a.Nome.Contains(textoBusca));
+
+    //linq to entities sintaxe de método
+    foreach (var nomeBanda in filtroNomeBanda2)
+    {
+        Console.WriteLine("{0}\t{1}", nomeBanda.ArtistaId, nomeBanda.Nome);
+    }
+
     Console.ReadKey();
 }
