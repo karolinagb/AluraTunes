@@ -38,11 +38,17 @@ using (var contexto = new AluraTunesDbContext())
     var textoBusca = "Led";
 
     var filtroNomeBanda = from a in contexto.Artista
+                          join alb in contexto.Albums
+                           on a.ArtistaId equals alb.ArtistaId
                           where a.Nome.Contains(textoBusca)
-                          select a;
-    foreach (var nomeBanda in filtroNomeBanda)
+                          select new
+                          {
+                              NomeArtista = a.Nome,
+                              NomeAlbum = alb.Titulo
+                          };
+    foreach (var item in filtroNomeBanda)
     {
-        Console.WriteLine("{0}\t{1}", nomeBanda.ArtistaId, nomeBanda.Nome);
+        Console.WriteLine("{0}\t{1}", item.NomeArtista, item.NomeAlbum);
     }
 
     Console.WriteLine();
