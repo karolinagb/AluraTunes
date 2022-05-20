@@ -61,5 +61,20 @@ using (var contexto = new AluraTunesDbContext())
         Console.WriteLine("{0}\t{1}", nomeBanda.ArtistaId, nomeBanda.Nome);
     }
 
+    Console.WriteLine();
+
+    var query2 = from alb in contexto.Albums
+                 where alb.Artista.Nome.Contains(textoBusca)
+                 select new 
+                 {
+                     NomeArtista = alb.Artista.Nome,
+                     NomeAlbum = alb.Titulo
+                 };
+
+    foreach(var item in query2)
+    {
+        Console.WriteLine("{0}\t{1}", item.NomeArtista, item.NomeAlbum);
+    }
+
     Console.ReadKey();
 }
