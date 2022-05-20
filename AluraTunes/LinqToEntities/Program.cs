@@ -1,6 +1,7 @@
 ﻿using LinqToEntities.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 using (var contexto = new AluraTunesDbContext())
 {
     //definicao consulta
@@ -65,16 +66,55 @@ using (var contexto = new AluraTunesDbContext())
 
     var query2 = from alb in contexto.Albums
                  where alb.Artista.Nome.Contains(textoBusca)
-                 select new 
+                 select new
                  {
                      NomeArtista = alb.Artista.Nome,
                      NomeAlbum = alb.Titulo
                  };
 
-    foreach(var item in query2)
+    foreach (var item in query2)
     {
         Console.WriteLine("{0}\t{1}", item.NomeArtista, item.NomeAlbum);
     }
 
+    Console.WriteLine();
+    Console.Clear();
+
+    Console.WriteLine("Consulta refinada");
+
+    //consulta faixas de musicas pelo nome do artista e titulo do album
+    //se o titulo do album for fornecido vamos trazer a consulta filtrada por nome artista e nome album
+    //se o nome do album não for fornecido, a gente pelo nome do artista
+
+    GetFaixas(contexto, "Led", "");
+
+    Console.WriteLine();
+
+    GetFaixas(contexto, "Led", "Graffiti");
+
     Console.ReadKey();
+}
+
+void GetFaixas(AluraTunesDbContext contexto, string textoBusca, string buscaAlbum)
+{
+    var query3 = from f in contexto.Faixas
+                 join alb in contexto.Albums on f.AlbumId equals alb.AlbumId
+                 where f.Album.Artista.Nome.Contains(textoBusca)
+                 select new
+                 {
+                     NomeAlbum = alb.Titulo,
+                     NomeFaixa = f.Nome,
+                     NomeArtista = alb.Artista.Nome
+                 };
+
+    if (!string.IsNullOrEmpty(buscaAlbum))
+    {
+        query3 = query3.Where(q => q.NomeAlbum.Contains(buscaAlbum));
+    }
+
+
+    foreach (var item in query3)
+    {
+        Console.WriteLine("{0}\t{1}\t{2}", item.NomeFaixa.PadRight(40), item.NomeAlbum.PadRight(40), item.NomeArtista);
+    }
 }
