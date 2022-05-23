@@ -149,4 +149,25 @@ void GetFaixas(AluraTunesDbContext contexto, string textoBusca, string buscaAlbu
     var quantidade = contexto.Faixas.Count(x => x.Album.Artista.Nome == "Led Zeppelin");
 
     Console.WriteLine("Led Zeppelin tem {0} músicas no banco de dados", quantidade);
+
+    Console.WriteLine();
+    Console.Clear();
+
+    //Calcular o total de vendas de um determinado artista:
+    var query5 = from inf in contexto.ItemNotaFiscals
+                 join f in contexto.Faixas on inf.FaixaId equals f.FaixaId
+                 where inf.Faixa.Album.Artista.Nome == "Led Zeppelin"
+                 select new
+                 {
+                     totalDoItem = inf.Quantidade * inf.PrecoUnitario
+                 };
+
+    //foreach (var item in query5)
+    //{
+    //    Console.WriteLine("{0}", item.totalDoItem);
+    //}
+
+    var totalDoArtista = query5.Sum(x => x.totalDoItem);
+
+    Console.WriteLine("Led Zeppelin tem R${0} de vendas", totalDoArtista.ToString("c"));
 }
