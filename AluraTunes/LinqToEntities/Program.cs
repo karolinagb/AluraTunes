@@ -100,6 +100,8 @@ void GetFaixas(AluraTunesDbContext contexto, string textoBusca, string buscaAlbu
     var query3 = from f in contexto.Faixas
                  join alb in contexto.Albums on f.AlbumId equals alb.AlbumId
                  where f.Album.Artista.Nome.Contains(textoBusca)
+                 //&& (!string.IsNullOrEmpty(buscaAlbum) ? f.Album.Titulo.Contains(buscaAlbum) : true)
+                 orderby f.Album.Titulo, f.Nome descending
                  select new
                  {
                      NomeAlbum = alb.Titulo,
@@ -111,6 +113,8 @@ void GetFaixas(AluraTunesDbContext contexto, string textoBusca, string buscaAlbu
     {
         query3 = query3.Where(q => q.NomeAlbum.Contains(buscaAlbum));
     }
+
+    //query3 = query3.OrderBy(x => x.NomeAlbum).ThenByDescending(x => x.NomeFaixa);
 
 
     foreach (var item in query3)
