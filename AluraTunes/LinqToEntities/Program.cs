@@ -121,4 +121,32 @@ void GetFaixas(AluraTunesDbContext contexto, string textoBusca, string buscaAlbu
     {
         Console.WriteLine("{0}\t{1}\t{2}", item.NomeFaixa.PadRight(40), item.NomeAlbum.PadRight(40), item.NomeArtista);
     }
+
+    Console.WriteLine();
+
+    //Fazendo contagem de contas faixas existem para determinado artista:
+    var query4 = from f in contexto.Faixas
+                 join alb in contexto.Albums on f.AlbumId equals alb.AlbumId
+                 where f.Album.Artista.Nome == "Led Zeppelin"
+                 select new
+                 {
+                     NomeFaixa = f.Nome,
+                     NomeArtista = alb.Artista.Nome
+                 };
+
+    //var quantidade = query4.Count();
+
+    //Console.WriteLine("Led Zeppelin tem {0} músicas no banco de dados", quantidade);
+
+    //foreach (var item in query4)
+    //{
+    //    Console.WriteLine("{0}\t{1}", item.NomeFaixa.PadRight(30), item.NomeArtista.PadLeft(20));
+    //}
+
+    //var quantidade = contexto.Faixas.Include(x => x.Album).Where(x => x.Album.Artista.Nome == "Led Zeppelin")
+    //    .Count();
+
+    var quantidade = contexto.Faixas.Count(x => x.Album.Artista.Nome == "Led Zeppelin");
+
+    Console.WriteLine("Led Zeppelin tem {0} músicas no banco de dados", quantidade);
 }
