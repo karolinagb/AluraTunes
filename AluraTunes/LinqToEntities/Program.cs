@@ -170,4 +170,38 @@ void GetFaixas(AluraTunesDbContext contexto, string textoBusca, string buscaAlbu
     var totalDoArtista = query5.Sum(x => x.totalDoItem);
 
     Console.WriteLine("Led Zeppelin tem R${0} de vendas", totalDoArtista.ToString("c"));
+
+    Console.WriteLine();
+
+    //Listar os albuns mais vendidos de um determinado artista
+    //var query6 = from inf in contexto.ItemNotaFiscals
+    //             .Include(x => x.Faixa.Album)
+    //             where inf.Faixa.Album.Artista.Nome == "Led Zeppelin"
+    //             group inf by inf.Faixa.Album into agrupado
+    //             select new
+    //             {
+    //                 NomeAlbum = agrupado.Key.Titulo,
+    //                 TotalPorAlbum = agrupado.Sum(x => x.Quantidade * x.PrecoUnitario)
+    //             };
+
+    var query6 = contexto.ItemNotaFiscals
+        .Include(x => x.Faixa.Album)
+        .Where(x => x.Faixa.Album.Artista.Nome == "Led Zeppelin")
+        .ToList();
+
+    var agrupado = query6
+        .GroupBy(x => x.Faixa.Album)
+        .Select(x => new
+        {
+            NomeAlbum = x.Key.Titulo,
+            TotalPorAlbum = x.Sum(x => x.Quantidade * x.PrecoUnitario)
+        })
+        .OrderByDescending(x => x.TotalPorAlbum);
+
+    foreach (var item in agrupado)
+    {
+        Console.WriteLine("{0}\t{1}",
+        item.NomeAlbum.PadRight(40), item.TotalPorAlbum.ToString("c"));
+    }
+
 }
