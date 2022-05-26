@@ -203,5 +203,38 @@ void GetFaixas(AluraTunesDbContext contexto, string textoBusca, string buscaAlbu
         Console.WriteLine("{0}\t{1}",
         item.NomeAlbum.PadRight(40), item.TotalPorAlbum.ToString("c"));
     }
+    Console.WriteLine();
+    //Valor da menor venda, da venda máxima e da venda média
 
+    var maiorVenda = contexto.NotaFiscals.Max(x => x.Total);
+
+    Console.WriteLine("O valor da maior venda é " + maiorVenda.ToString("c"));
+
+    var menorVenda = contexto.NotaFiscals.Min(x => x.Total);
+
+    Console.WriteLine("O valor da menor venda é " + menorVenda.ToString("c"));
+
+    var mediaVendas = contexto.NotaFiscals.Average(x => x.Total);
+
+    Console.WriteLine("O valor médio de venda é " + mediaVendas.ToString("c"));
+
+    Console.WriteLine();
+
+    //Trazendo todos os valores numa consulta só:
+
+    var vendas = contexto.NotaFiscals
+        .GroupBy(x => 1)
+        .Select(x => new
+        {
+            VendasMaximas = x.Max(x => x.Total),
+            VendasMinimas = x.Min(x => x.Total),
+            VendasMedias = x.Average(x => x.Total)
+        });
+
+    foreach (var item in vendas)
+    {
+        Console.WriteLine("O valor da maior venda é " + item.VendasMaximas.ToString("c"));
+        Console.WriteLine("O valor da menor venda é " + item.VendasMinimas.ToString("c"));
+        Console.WriteLine("O valor médio de venda é " + item.VendasMedias.ToString("c"));
+    }
 }
