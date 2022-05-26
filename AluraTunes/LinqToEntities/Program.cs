@@ -237,4 +237,26 @@ void GetFaixas(AluraTunesDbContext contexto, string textoBusca, string buscaAlbu
         Console.WriteLine("O valor da menor venda é " + item.VendasMinimas.ToString("c"));
         Console.WriteLine("O valor médio de venda é " + item.VendasMedias.ToString("c"));
     }
+
+    Console.Clear();
+    Console.WriteLine();
+
+    //Calcular a mediana das vendas ou notas fiscais
+
+    var query7 = contexto.NotaFiscals;
+
+    var contagem = query7.Count();
+
+    var queryOrdenada = query7.OrderBy(x => x.Total);
+
+    //So da pra usar o skip apos consulta ordenada
+    var elementoCentral = queryOrdenada
+        .Skip(contagem / 2)
+        .First();
+
+    var mediana = elementoCentral.Total;
+
+
+    Console.WriteLine("Mediana: {0}", mediana);
+
 }
