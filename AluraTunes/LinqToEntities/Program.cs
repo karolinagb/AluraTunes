@@ -1,6 +1,6 @@
 ﻿using LinqToEntities.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Linq.Expressions;
 
 using (var contexto = new AluraTunesDbContext())
 {
@@ -244,29 +244,40 @@ void GetFaixas(AluraTunesDbContext contexto, string textoBusca, string buscaAlbu
     //Calcular a mediana das vendas ou notas fiscais
 
     var query7 = contexto.NotaFiscals.Select(x => x.Total);
-    decimal mediana = Mediana(query7);
+    //decimal mediana = Mediana(query7);
 
-    Console.WriteLine("Mediana: {0}", mediana);
+    //Console.WriteLine("Mediana: {0}", mediana);
+
+    Console.WriteLine();
+
+    var vendaMediana = contexto.NotaFiscals.Mediana(x => x.Total);
+    Console.WriteLine("Mediana: {0}", vendaMediana);
 
 }
 
 //Metodo extensao = metodo que vai complementar uma biblioteca já existente
-
-decimal Mediana(IQueryable<decimal> query7)
+public static class LinqExtensions
 {
-    var contagem = query7.Count();
+    public static decimal Mediana<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, decimal>> selector)
+    {
+        var contagem = source.Count();
 
-    var queryOrdenada = query7.OrderBy(x => x);
+        //Seletor = é o campo que eu quero que seja realizada a função
+        //Pega o seletor e compilar porque o seletor ainda não é uma função, mas uma definição de função
+        var funcSelector = selector.Compile();
 
-    //So da pra usar o skip apos consulta ordenada
-    var elementoCentral_1 = queryOrdenada
-        .Skip(contagem / 2)
-        .First();
+        var queryOrdenada = source.Select(funcSelector).OrderBy(x => x);
 
-    var elementoCentral_2 = queryOrdenada
-       .Skip((contagem - 1)/ 2)
-       .First();
+        //So da pra usar o skip apos consulta ordenada
+        var elementoCentral_1 = queryOrdenada
+            .Skip(contagem / 2)
+            .First();
 
-    var mediana = (elementoCentral_1 + elementoCentral_2) / 2;
-    return mediana;
+        var elementoCentral_2 = queryOrdenada
+           .Skip((contagem - 1) / 2)
+           .First();
+
+        var mediana = (elementoCentral_1 + elementoCentral_2) / 2;
+        return mediana;
+    }
 }
