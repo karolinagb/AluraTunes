@@ -243,20 +243,30 @@ void GetFaixas(AluraTunesDbContext contexto, string textoBusca, string buscaAlbu
 
     //Calcular a mediana das vendas ou notas fiscais
 
-    var query7 = contexto.NotaFiscals;
-
-    var contagem = query7.Count();
-
-    var queryOrdenada = query7.OrderBy(x => x.Total);
-
-    //So da pra usar o skip apos consulta ordenada
-    var elementoCentral = queryOrdenada
-        .Skip(contagem / 2)
-        .First();
-
-    var mediana = elementoCentral.Total;
-
+    var query7 = contexto.NotaFiscals.Select(x => x.Total);
+    decimal mediana = Mediana(query7);
 
     Console.WriteLine("Mediana: {0}", mediana);
 
+}
+
+//Metodo extensao = metodo que vai complementar uma biblioteca já existente
+
+decimal Mediana(IQueryable<decimal> query7)
+{
+    var contagem = query7.Count();
+
+    var queryOrdenada = query7.OrderBy(x => x);
+
+    //So da pra usar o skip apos consulta ordenada
+    var elementoCentral_1 = queryOrdenada
+        .Skip(contagem / 2)
+        .First();
+
+    var elementoCentral_2 = queryOrdenada
+       .Skip((contagem - 1)/ 2)
+       .First();
+
+    var mediana = (elementoCentral_1 + elementoCentral_2) / 2;
+    return mediana;
 }
